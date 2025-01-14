@@ -1,0 +1,39 @@
+﻿@model StockInventorySync.Models.Category
+
+@{
+	ViewData["Title"] = "Edit Category";
+}
+
+<div class="mt-4 row justify-content-center">
+	<div class="card border-light shadow col-md-6 bg-primary-subtle">
+		<div class="card-header bg-primary bg-gradient text-light mt-2"><h4 class="card-title">Modify Category</h4></div>
+		<div>
+			<form asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="Category_Id" />
+				<div class="form-floating mt-3 mb-3 ">
+					<input asp-for="Name" class="form-control" id="floatingInput" placeholder="IPhone 16" autofocus>
+					<label for="floatingInput">Name</label>
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-floating mt-3 mb-3 ">
+					<textarea style="height: 300px" asp-for="Description" class="form-control" id="floatingInput" placeholder="IPhone 16" autofocus></textarea>
+					<label for="floatingInput">Description</label>
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+				<br />
+				<div class="form-group mb-2">
+					<input type="submit" value="Update" class="btn btn-success" />
+					<a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

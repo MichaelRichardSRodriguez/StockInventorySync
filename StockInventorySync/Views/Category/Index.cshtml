@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Category>
+
+@{
+	ViewData["Title"] = "Category List";
+	var buttonStatus = string.Empty;
+}
+
+<div class="mt-2 row card border-1 shadow">
+	<div class="card-header bg-primary-subtle"><h4 class="text-primary">Category List</h4></div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col">
+				<p>
+					<a class="btn btn-primary" asp-action="Create">Create New</a>
+				</p>
+			</div>
+			<div class="col-3">
+				<div class="input-group mb-3">
+					<div class="col mt-2">
+						<label>Filter Status:</label>
+					</div>
+					<div class="col-8">
+						<select class="form-select">
+							<option value="All">ALL</option>
+							<option value="Active">ACTIVE</option>
+							<option value="Inactive">INACTIVE</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="Search Category Here..." aria-label="Recipient's username" aria-describedby="button-search">
+					<button class="btn btn-primary" type="button" id="button-search">Search</button>
+				</div>
+			</div>
+		</div>
+
+		@if (Model.Count() > 0)
+		{
+			<div class="container-fluid">
+				<table class="table">
+					<thead>
+						<tr>
+							<th style="width: 12%">@Html.DisplayNameFor(model => model.Name)</th>
+							<th style="width: 55%">@Html.DisplayNameFor(model => model.Description)</th>
+							<th style="width: 8%">@Html.DisplayNameFor(model => model.Status)</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.Name)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Description)
+								</td>
+								<td>
+									@if (item.Status == "Inactive")
+									{
+										<a class="btn btn-danger btn-sm text-white" asp-action="LockUnlockStatus" asp-route-id="@item.Category_Id" style="cursor:pointer; width:100px;">
+											<i class="bi bi-Unlock-fill"></i> @item.Status
+										</a>
+									}
+									else
+									{
+										<a class="btn btn-success btn-sm text-white" asp-action="LockUnlockStatus" asp-route-id="@item.Category_Id" style="cursor:pointer; width:100px;">
+											<i class="bi bi-Unlock-fill"></i> @item.Status
+										</a>
+									}
+
+								</td>
+								<td>
+									@if (item.Status == "Active")
+									{
+										buttonStatus = "btn btn-primary btn-sm";
+									}
+									else
+									{
+										buttonStatus = "btn btn-secondary btn-sm disabled";
+									}
+
+									<a class="@buttonStatus" asp-action="Edit" asp-route-id="@item.Category_Id">Edit</a>
+									<a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Category_Id">Details</a>
+									<a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Category_Id">Delete</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		}
+		else
+		{
+			<div class="alert alert-secondary">
+				<strong>No Record Created</strong>
+			</div>
+		}
+	</div>
+</div>
+
