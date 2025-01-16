@@ -74,7 +74,7 @@ namespace StockInventorySync.Controllers
                 {
                     category.DateCreated = DateTime.Now;
                     category.CreatedBy = "MIKE";
-                    category.Status = StaticDetails.Status_Active;
+                    category.Status = StaticDetails.STATUS_ACTIVE;
                     category.DateActivatedDeactivated = DateTime.Now;
                     category.ActivatedDeactivatedBy = "MIKE";
 
@@ -203,15 +203,15 @@ namespace StockInventorySync.Controllers
 			category.DateActivatedDeactivated = DateTime.Now;
 			category.ActivatedDeactivatedBy = "MIKE";
 
-			if (category.Status == StaticDetails.Status_Active)
+			if (category.Status == StaticDetails.STATUS_ACTIVE)
             {
-                category.Status = StaticDetails.Status_Inactive;
-				TempData["success"] = $"Category Status change to {StaticDetails.Status_Inactive.ToUpper()}! You're not allowed to modify this Category.";
+                category.Status = StaticDetails.STATUS_INACTIVE;
+				TempData["success"] = $"Category Status change to {StaticDetails.STATUS_INACTIVE.ToUpper()}! You're not allowed to modify this Category.";
 			}
             else
             {
-                category.Status = StaticDetails.Status_Active;
-				TempData["success"] = $"Category Status change to {StaticDetails.Status_Active.ToUpper()}!";
+                category.Status = StaticDetails.STATUS_ACTIVE;
+				TempData["success"] = $"Category Status change to {StaticDetails.STATUS_ACTIVE.ToUpper()}!";
 			}
 
             _context.Categories.Update(category);

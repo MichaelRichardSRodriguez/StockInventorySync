@@ -49,7 +49,7 @@ namespace StockInventorySync.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            ViewData["Category_Id"] = new SelectList(_context.Categories.Where(c => c.Status == StaticDetails.Status_Active), "Category_Id", "Name");
+            ViewData["Category_Id"] = new SelectList(_context.Categories.Where(c => c.Status == StaticDetails.STATUS_ACTIVE), "Category_Id", "Name");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace StockInventorySync.Controllers
             {
                 product.DateCreated = DateTime.Now;
                 product.CreatedBy = "MIKE";
-                product.Status = StaticDetails.Status_Active;
+                product.Status = StaticDetails.STATUS_ACTIVE;
 				product.DateActivatedDeactivated = DateTime.Now;
 				product.ActivatedDeactivatedBy = "MIKE";
 
@@ -198,15 +198,15 @@ namespace StockInventorySync.Controllers
 			product.DateActivatedDeactivated = DateTime.Now;
 			product.ActivatedDeactivatedBy = "MIKE";
 
-			if (product.Status == StaticDetails.Status_Active)
+			if (product.Status == StaticDetails.STATUS_ACTIVE)
 			{
-				product.Status = StaticDetails.Status_Inactive;
-				TempData["success"] = $"Product Status change to {StaticDetails.Status_Inactive.ToUpper()}! You're not allowed to modify this Product.";
+				product.Status = StaticDetails.STATUS_INACTIVE;
+				TempData["success"] = $"Product Status change to {StaticDetails.STATUS_INACTIVE.ToUpper()}! You're not allowed to modify this Product.";
 			}
 			else
 			{
-				product.Status = StaticDetails.Status_Active;
-				TempData["success"] = $"Product Status change to {StaticDetails.Status_Active.ToUpper()}!";
+				product.Status = StaticDetails.STATUS_ACTIVE;
+				TempData["success"] = $"Product Status change to {StaticDetails.STATUS_ACTIVE.ToUpper()}!";
 			}
 
 			_context.Products.Update(product);

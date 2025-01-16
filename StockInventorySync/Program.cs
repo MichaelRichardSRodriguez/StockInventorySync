@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StockInventorySync.DataAccess.Data;
 using Microsoft.AspNetCore.Identity;
+using StockInventorySync.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,9 @@ builder.Services.AddControllersWithViews();
 //Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StockInventorySyncConn")));
 builder.Services.AddRazorPages();
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IEmailSender,EmailSender>();
 
 var app = builder.Build();
 
