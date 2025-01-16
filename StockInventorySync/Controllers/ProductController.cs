@@ -49,7 +49,7 @@ namespace StockInventorySync.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            ViewData["Category_Id"] = new SelectList(_context.Categories, "Category_Id", "Name");
+            ViewData["Category_Id"] = new SelectList(_context.Categories.Where(c => c.Status == StaticDetails.Status_Active), "Category_Id", "Name");
             return View();
         }
 
